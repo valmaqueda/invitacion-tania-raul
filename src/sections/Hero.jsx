@@ -1,6 +1,6 @@
 // src/sections/Hero.jsx
 import { motion } from "framer-motion";
-import heroImg from "../assets/hero-tania-raul.jpg";
+import heroImg from "../assets/hero-tania-raul.JPG";
 
 // --- GRECA CALIGRÁFICA ---
 const FloralDivider = () => {
