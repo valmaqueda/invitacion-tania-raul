@@ -105,7 +105,7 @@ const cards = [
   },
   {
     title: "Papás del novio",
-    names: ["Verónica Campuzano", "Raúl Noria"],
+    names: ["Verónica Campuzano Ramírez", "Raúl Noria"],
   },
   {
     title: "Padrinos de velación",
