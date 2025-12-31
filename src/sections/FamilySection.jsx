@@ -4,14 +4,14 @@ import { motion } from "framer-motion";
 // --- GRECA CENTRAL (Hoja minimalista) ---
 const OrnamentalDivider = () => (
   <div className="flex items-center justify-center gap-4 my-8 opacity-80">
-    <div className="h-[1px] w-12 md:w-24 bg-mustard/40" />
+    <div className="h-[1px] w-12 md:w-24 bg-[#A7712D]/40" />
     <svg
       width="32"
       height="32"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="drop-shadow-sm text-mustard"
+      className="drop-shadow-sm text-[#A7712D]"
     >
       <path
         d="M12 21C12 21 13.5 16.5 17 14C20.5 11.5 21 8 21 8C21 8 17.5 8.5 15 11C12.5 13.5 12 17 12 17C12 17 11.5 13.5 9 11C6.5 8.5 3 8 3 8C3 8 3.5 11.5 7 14C10.5 16.5 12 21 12 21Z"
@@ -19,7 +19,7 @@ const OrnamentalDivider = () => (
         fillOpacity="0.85"
       />
     </svg>
-    <div className="h-[1px] w-12 md:w-24 bg-mustard/40" />
+    <div className="h-[1px] w-12 md:w-24 bg-[#A7712D]/40" />
   </div>
 );
 
@@ -56,7 +56,7 @@ const SideOrnament = ({ side = "left" }) => {
         xmlns="http://www.w3.org/2000/svg"
         className="
           h-[220px] lg:h-[260px] xl:h-[320px]
-          text-mustard/40
+          text-[#A7712D]/40
         "
       >
         {/* Ramita principal */}
@@ -105,11 +105,11 @@ const cards = [
   },
   {
     title: "Papás del novio",
-    names: ["Verónica Campuzano Ramírez", "Raúl Noria"],
+    names: ["Verónica Campuzano Ramírez", "Raúl Noria Rodríguez"],
   },
   {
     title: "Padrinos de velación",
-    names: ["Lorem Ipsum", "Dolor Sit Amet"], // placeholders
+    names: ["Alma Delia Campuzano Ramírez", "Oscar Horacio Hernández Rodríguez"],
   },
 ];
 
@@ -140,7 +140,7 @@ function FamilySection() {
         }}
       />
 
-      {/* Grecas laterales en mustard (solo md+) */}
+      {/* Grecas laterales (solo md+) */}
       <SideOrnament side="left" />
       <SideOrnament side="right" />
 
@@ -153,14 +153,17 @@ function FamilySection() {
           viewport={{ once: true, amount: 0.4 }}
           className="px-4"
         >
-          <p className="text-[10px] md:text-xs tracking-[0.35em] uppercase text-mustard mb-5 font-bold">
+          <p className="text-[10px] md:text-xs tracking-[0.35em] uppercase text-[#A7712D] mb-5 font-bold">
             Con el corazón lleno de gratitud
           </p>
 
-          <h2 className="font-serif text-2xl md:text-4xl text-olive leading-snug md:leading-normal max-w-3xl mx-auto">
+          <h2
+            className="font-serif text-2xl md:text-4xl text-[#7F8464] leading-snug md:leading-normal max-w-3xl mx-auto"
+          >
             Caminamos de la mano de Dios, respaldados por el amor infinito de
             nuestros padres y el cariño incondicional de nuestros padrinos.
           </h2>
+
         </motion.div>
 
         {/* GRECA CENTRAL */}
@@ -199,24 +202,25 @@ function FamilySection() {
                 transition-shadow duration-300
               "
             >
-              <p className="uppercase tracking-[0.22em] text-[9px] md:text-[10px] text-olive/70 mb-4 font-semibold">
+              {/* etiqueta: Papás de la novia, etc. */}
+              <p className="uppercase tracking-[0.22em] text-[9px] md:text-[10px] text-[#b2b499] mb-4 font-semibold">
                 {card.title}
               </p>
 
-              <div className="w-8 h-[1px] bg-mustard/50 mx-auto mb-5" />
+              <div className="w-8 h-[1px] bg-[#A7712D]/50 mx-auto mb-5" />
 
               <div className="space-y-2">
                 {card.names.map((name) => (
                   <p
                     key={name}
-                    className="font-serif text-lg md:text-xl text-[#4B5530]"
+                    className="font-serif text-lg md:text-xl text-[#772b12]"
                   >
                     {name}
                   </p>
                 ))}
               </div>
 
-              <div className="pointer-events-none absolute inset-x-10 -bottom-6 h-8 bg-mustard/20 blur-xl opacity-40" />
+              <div className="pointer-events-none absolute inset-x-10 -bottom-6 h-8 bg-[#A7712D]/20 blur-xl opacity-40" />
             </motion.div>
           ))}
         </div>

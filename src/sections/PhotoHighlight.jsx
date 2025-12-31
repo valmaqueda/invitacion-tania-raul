@@ -2,37 +2,39 @@
 import { motion } from "framer-motion";
 import kensingtonImg from "../assets/kensington-steps.jpg";
 
-// Componente reutilizable de una rama horizontal
+// 🌿 Rama decorativa con efecto de dibujo compatible con iOS
 function DecorativeVine({ className = "", delayOffset = 0 }) {
+  const dashLength = 420; // "largo" del trazo para la animación
+
   return (
     <motion.svg
       viewBox="0 0 400 60"
       xmlns="http://www.w3.org/2000/svg"
-      className={`w-full max-w-4xl text-olive ${className}`}
+      className={`w-full max-w-4xl text-[#943f21] ${className}`}
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.6 }}
       transition={{ duration: 0.8, ease: [0.22, 0.55, 0.34, 0.99] }}
     >
-      {/* tallo principal */}
+      {/* Tallo principal que se "dibuja" */}
       <motion.path
         d="M5 45 C 80 10, 160 10, 240 30 C 300 45, 340 50, 395 40"
         fill="none"
         stroke="currentColor"
         strokeWidth="2.2"
         strokeLinecap="round"
-        style={{ pathLength: 0 }}
-        initial={{ pathLength: 0, opacity: 0 }}
-        whileInView={{ pathLength: 1, opacity: 1 }}
-        viewport={{ once: true, amount: 0.6 }}
+        strokeDasharray={dashLength}
+        initial={{ strokeDashoffset: dashLength, opacity: 0 }}
+        whileInView={{ strokeDashoffset: 0, opacity: 1 }}
+        viewport={{ once: true, amount: 0.7 }}
         transition={{
-          duration: 2.4,
+          duration: 2.5,
           delay: 0.2 + delayOffset,
           ease: [0.22, 0.55, 0.34, 0.99],
         }}
       />
 
-      {/* Hojitas mostaza – varias, entrando poquito a poco */}
+      {/* Hojitas en mustard, apareciendo poquito a poco */}
       {[
         { d: "M60 32 C 50 28 46 22 45 15 C 54 18 59 24 60 32 Z", delay: 1.0 },
         { d: "M130 20 C 120 16 116 10 115 3 C 124 6 129 12 130 20 Z", delay: 1.2 },
@@ -43,12 +45,12 @@ function DecorativeVine({ className = "", delayOffset = 0 }) {
         <motion.path
           key={idx}
           d={leaf.d}
-          fill="#CB9850"
-          initial={{ opacity: 0, scale: 0.6, y: 4 }}
+          fill="#e9991a"
+          initial={{ opacity: 0, scale: 0.7, y: 4 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
+          viewport={{ once: true, amount: 0.7 }}
           transition={{
-            duration: 0.5,
+            duration: 0.55,
             delay: leaf.delay + delayOffset,
             ease: [0.22, 0.55, 0.34, 0.99],
           }}
@@ -61,7 +63,7 @@ function DecorativeVine({ className = "", delayOffset = 0 }) {
 function PhotoHighlight() {
   return (
     <section className="w-full bg-ivory py-16 md:py-20 px-4 flex justify-center relative overflow-hidden">
-      {/* fondo degradé suave */}
+      {/* Fondo degradé suave */}
       <div
         className="absolute inset-0 -z-10 opacity-70 mix-blend-multiply pointer-events-none"
         style={{
@@ -71,17 +73,17 @@ function PhotoHighlight() {
       />
 
       <div className="relative z-10 w-full max-w-5xl flex flex-col items-center gap-4 md:gap-6">
-        {/* título */}
+        {/* Título */}
         <div className="text-center">
-          <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-olive/80 font-semibold">
+          <p className="text-[14px] md:text-xs tracking-[0.3em] uppercase text-[#7F8464] font-semibold">
             Escribiendo nuestra historia
           </p>
         </div>
 
-        {/* 🌿 rama superior, sobre el fondo, debajo del título */}
+        {/* 🌿 Rama superior */}
         <DecorativeVine className="mt-1 mb-2" delayOffset={0} />
 
-        {/* foto */}
+        {/* Foto */}
         <motion.div
           className="
             relative overflow-hidden
@@ -115,19 +117,19 @@ function PhotoHighlight() {
             }}
           />
 
-          {/* viñeta suave */}
+          {/* Viñeta suave */}
           <div
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(circle at center, transparent 45%, rgba(0,0,0,0.18) 100%)",
+                "radial-gradient(circle at center, transparent 45%, rgba(0,0,0,0.19) 100%)",
               mixBlendMode: "soft-light",
             }}
           />
         </motion.div>
 
-        {/* 🌿 rama inferior, debajo de la foto */}
-        <DecorativeVine className="mt-3" delayOffset={0.4} />
+        {/* 🌿 Rama inferior */}
+        <DecorativeVine className="mt-3" delayOffset={0.7} />
       </div>
     </section>
   );
