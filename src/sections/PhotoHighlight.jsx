@@ -3,62 +3,114 @@ import { motion } from "framer-motion";
 import kensingtonImg from "../assets/kensington-steps.jpg";
 
 // 🌿 Rama decorativa con efecto de dibujo compatible con iOS
+// 🌿 Rama decorativa (iOS-safe): trigger 1 sola vez en el SVG + draw con dashoffset
 function DecorativeVine({ className = "", delayOffset = 0 }) {
-  const dashLength = 420; // "largo" del trazo para la animación
+  const stemDash = 520;
+  const leafDash = 140;
+
+  const wrapVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        delayChildren: 0.25 + delayOffset,
+        staggerChildren: 0.14,
+      },
+    },
+  };
+
+  const stemVariants = {
+    hidden: { strokeDashoffset: stemDash, opacity: 0 },
+    visible: {
+      strokeDashoffset: 0,
+      opacity: 1,
+      transition: {
+        duration: 2.4,
+        ease: [0.22, 0.55, 0.34, 0.99],
+      },
+    },
+  };
+
+  const leafStrokeVariants = (delay = 0) => ({
+    hidden: { strokeDashoffset: leafDash, opacity: 0 },
+    visible: {
+      strokeDashoffset: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.85,
+        delay,
+        ease: [0.22, 0.55, 0.34, 0.99],
+      },
+    },
+  });
+
+  const leafFillVariants = (delay = 0) => ({
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.45, delay: delay + 0.35 },
+    },
+  });
+
+  const leaves = [
+    { d: "M60 32 C 50 28 46 22 45 15 C 54 18 59 24 60 32 Z", delay: 0.9 },
+    { d: "M130 20 C 120 16 116 10 115 3 C 124 6 129 12 130 20 Z", delay: 1.05 },
+    { d: "M190 38 C 180 34 176 28 175 21 C 184 24 189 30 190 38 Z", delay: 1.2 },
+    { d: "M255 26 C 245 22 241 16 240 9 C 249 12 254 18 255 26 Z", delay: 1.35 },
+    { d: "M320 40 C 310 36 306 30 305 23 C 314 26 319 32 320 40 Z", delay: 1.5 },
+  ];
 
   return (
     <motion.svg
       viewBox="0 0 400 60"
       xmlns="http://www.w3.org/2000/svg"
-      className={`w-full max-w-4xl text-[#943f21] ${className}`}
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.6 }}
-      transition={{ duration: 0.8, ease: [0.22, 0.55, 0.34, 0.99] }}
+      // 👉 overflow-visible ayuda a evitar “clipping” raro en Safari
+      className={`w-full max-w-4xl overflow-visible ${className}`}
+      // 👉 color del tallo (ajusta si quieres). Yo lo dejo #7F8464 como tu estilo
+      style={{
+        color: "#7F8464",
+        WebkitBackfaceVisibility: "hidden",
+        backfaceVisibility: "hidden",
+      }}
+      variants={wrapVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.55 }}
     >
-      {/* Tallo principal que se "dibuja" */}
+      {/* Tallo principal: dibujado iOS-safe */}
       <motion.path
         d="M5 45 C 80 10, 160 10, 240 30 C 300 45, 340 50, 395 40"
         fill="none"
         stroke="currentColor"
         strokeWidth="2.2"
         strokeLinecap="round"
-        strokeDasharray={dashLength}
-        initial={{ strokeDashoffset: dashLength, opacity: 0 }}
-        whileInView={{ strokeDashoffset: 0, opacity: 1 }}
-        viewport={{ once: true, amount: 0.7 }}
-        transition={{
-          duration: 2.5,
-          delay: 0.2 + delayOffset,
-          ease: [0.22, 0.55, 0.34, 0.99],
-        }}
+        strokeDasharray={stemDash}
+        variants={stemVariants}
       />
 
-      {/* Hojitas en mustard, apareciendo poquito a poco */}
-      {[
-        { d: "M60 32 C 50 28 46 22 45 15 C 54 18 59 24 60 32 Z", delay: 1.0 },
-        { d: "M130 20 C 120 16 116 10 115 3 C 124 6 129 12 130 20 Z", delay: 1.2 },
-        { d: "M190 38 C 180 34 176 28 175 21 C 184 24 189 30 190 38 Z", delay: 1.4 },
-        { d: "M255 26 C 245 22 241 16 240 9 C 249 12 254 18 255 26 Z", delay: 1.6 },
-        { d: "M320 40 C 310 36 306 30 305 23 C 314 26 319 32 320 40 Z", delay: 1.8 },
-      ].map((leaf, idx) => (
-        <motion.path
-          key={idx}
-          d={leaf.d}
-          fill="#e9991a"
-          initial={{ opacity: 0, scale: 0.7, y: 4 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.7 }}
-          transition={{
-            duration: 0.55,
-            delay: leaf.delay + delayOffset,
-            ease: [0.22, 0.55, 0.34, 0.99],
-          }}
-        />
+      {/* Hojas: 2 capas (stroke dibujado + fill que aparece) */}
+      {leaves.map((leaf, idx) => (
+        <g key={idx}>
+          <motion.path
+            d={leaf.d}
+            fill="none"
+            stroke="#A7712D"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeDasharray={leafDash}
+            variants={leafStrokeVariants(leaf.delay)}
+          />
+          <motion.path
+            d={leaf.d}
+            fill="#A7712D"
+            variants={leafFillVariants(leaf.delay)}
+          />
+        </g>
       ))}
     </motion.svg>
   );
 }
+
 
 function PhotoHighlight() {
   return (
