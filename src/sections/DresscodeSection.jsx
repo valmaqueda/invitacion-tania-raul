@@ -4,10 +4,10 @@ import pinterestBg from "../assets/pinterest-bg.jpg";
 
 // --- COLORES ---
 const colorPalette = [
-  { hex: "#EFE2D6", name: "Beige" },
-  { hex: "#CB9850", name: "Dorado" },
-  { hex: "#B2BB89", name: "Olivo" },
-  { hex: "#E8C6B6", name: "Terracota" },
+  { hex: "#91962c", name: "Verde olivo" },
+  { hex: "#d18653", name: "Naranja" },
+  { hex: "#a84da6", name: "Fucsia" },
+  { hex: "#028f7d", name: "Aqua" },
   { hex: "#8C6A4B", name: "Camel" }
 ];
 
@@ -159,7 +159,7 @@ export default function DresscodeSection() {
                 <ElegantHeader title="Ellas" color="#CB9850" />
                 
                 <p className="font-sans text-xs md:text-sm text-gray-600 leading-relaxed px-2">
-                  Vestidos midi o largos vaporosos. Telas como lino, seda o gasa.<br/>
+                Vestido largo. Evitar blanco y tonos muy claros que se perciban como blanco (hueso, marfil, crema), incluyendo estampados con fondo blanco<br/>
                   <span className="text-[#949D6A] font-medium mt-3 block tracking-wide">Tip: Tacón ancho para el jardín.</span>
                 </p>
               </motion.div>
@@ -176,8 +176,8 @@ export default function DresscodeSection() {
                 <ElegantHeader title="Ellos" color="#B2BB89" />
                 
                 <p className="font-sans text-xs md:text-sm text-gray-600 leading-relaxed px-2">
-                  Trajes claros de lino o algodón (beige, gris perla, azul).<br/>
-                  <span className="text-[#949D6A] font-medium mt-3 block tracking-wide">Sin corbata, relajado pero elegante.</span>
+                Traje en tonos claros o medios (gris, azul, verde). Evitar beige.<br/>
+                  <span className="text-[#949D6A] font-medium mt-3 block tracking-wide">Corbata opcional, relajado pero elegante.</span>
                 </p>
               </motion.div>
             </div>
@@ -194,7 +194,7 @@ export default function DresscodeSection() {
               className="relative w-full max-w-sm aspect-[3/4] group cursor-pointer"
             >
               <a 
-                href="https://pin.it/7qinJ4qia" 
+                href="https://pin.it/2BGodosv8" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="block w-full h-full"

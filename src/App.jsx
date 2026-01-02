@@ -7,6 +7,8 @@ import LocationSection from "./sections/LocationSection.jsx";
 import GiftSection from "./sections/GiftSection";
 import DresscodeSection from "./sections/DresscodeSection";
 import Footer from "./sections/Footer";
+import StaySection from "./sections/StaySection";
+
 
 import FloatingNav from "./components/FloatingNav";
 
@@ -20,6 +22,7 @@ function App() {
       <PhotoHighlight />   {/* 👉 aquí va la foto bonita */}
       <EventTimeline />
       <LocationSection />
+      <StaySection />
       <GiftSection />   {/* 👈 mesa de regalos */}
       <DresscodeSection /> 
       <Footer />
