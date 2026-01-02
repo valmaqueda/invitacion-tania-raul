@@ -96,7 +96,7 @@ export default function DresscodeSection() {
             transition={{ duration: 0.8 }}
             className="inline-block mb-5"
           >
-            <span className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#CB9850] border-b border-[#CB9850]/40 pb-1">
+            <span className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#A7712D] border-b border-[#CB9850]/40 pb-1">
               Código de Vestimenta
             </span>
           </motion.div>

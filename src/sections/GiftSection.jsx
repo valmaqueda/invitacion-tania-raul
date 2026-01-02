@@ -114,7 +114,7 @@ export default function GiftSection() {
             transition={{ delay: 1 }}
             className="inline-block mb-3"
           >
-            <span className="text-[9px] md:text-[10px] font-medium tracking-[0.3em] uppercase text-[#CB9850] border-b border-[#CB9850]/30 pb-1">
+            <span className="text-[9px] md:text-[10px] font-medium tracking-[0.3em] uppercase text-[#A7712D] border-b border-[#CB9850]/30 pb-1">
               Mesa de Regalos
             </span>
           </motion.div>

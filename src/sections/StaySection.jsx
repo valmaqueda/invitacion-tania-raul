@@ -110,7 +110,7 @@ function StaySection() {
           </div>
 
           {/* Título nuevo (menos cliché) */}
-          <h2 className="font-serif text-4xl md:text-6xl text-[#631600] leading-tight mb-5">
+          <h2 className="font-serif text-4xl md:text-6xl text-[#7F8464] leading-tight mb-5">
             Planea tu estancia
           </h2>
 

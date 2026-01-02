@@ -8,7 +8,8 @@ import GiftSection from "./sections/GiftSection";
 import DresscodeSection from "./sections/DresscodeSection";
 import Footer from "./sections/Footer";
 import StaySection from "./sections/StaySection";
-
+import RSVPSection from "./sections/RSVPSection";
+import PhotoGallerySection from "./sections/PhotoGallerySection";
 
 import FloatingNav from "./components/FloatingNav";
 
@@ -25,6 +26,8 @@ function App() {
       <StaySection />
       <GiftSection />   {/* 👈 mesa de regalos */}
       <DresscodeSection /> 
+      <RSVPSection/>
+      <PhotoGallerySection/>
       <Footer />
     </>
   );

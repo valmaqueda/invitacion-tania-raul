@@ -293,7 +293,7 @@ function EventTimeline() {
           className="text-center mb-16"
         >
           <div className="inline-block mb-4">
-            <span className="text-xs md:text-sm tracking-[0.25em] uppercase text-[#CB9850] font-bold border-b border-[#CB9850]/30 pb-1">
+            <span className="text-xs md:text-sm tracking-[0.25em] uppercase text-[#A7712D] font-bold border-b border-[#CB9850]/30 pb-1">
               Programa del día
             </span>
           </div>
