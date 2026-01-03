@@ -124,7 +124,7 @@ export default function GiftSection() {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="font-serif text-2xl md:text-4xl text-[#2A2A2A] mb-3 leading-tight"
+            className="font-serif text-2xl md:text-4xl text-[#645e46] mb-3 leading-tight"
           >
             Su compañía es nuestro<br />mejor regalo
           </motion.h2>
@@ -135,7 +135,7 @@ export default function GiftSection() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="font-serif italic text-base md:text-lg text-[#949D6A] max-w-lg mx-auto leading-relaxed"
           >
-            pero si desean tener un detalle con nosotros, agradecemos infinitamente que sea por este medio.
+            Si desean tener un detalle con nosotros, agradecemos infinitamente que sea por este medio.
           </motion.p>
         </motion.div>
 

@@ -101,7 +101,7 @@ const SideOrnament = ({ side = "left" }) => {
 const cards = [
   {
     title: "Papás de la novia",
-    names: ["Marco Antonio Andrade Martínez", "Emma Maqueda Martínez"],
+    names: ["Emma Maqueda Martínez", "Marco Antonio Andrade Martínez"],
   },
   {
     title: "Papás del novio",
