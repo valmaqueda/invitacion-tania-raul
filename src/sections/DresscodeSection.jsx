@@ -159,7 +159,7 @@ export default function DresscodeSection() {
                 <ElegantHeader title="Ellas" color="#CB9850" />
                 
                 <p className="font-sans text-xs md:text-sm text-gray-600 leading-relaxed px-2">
-                Vestido largo. Evitar blanco y tonos muy claros que se perciban como blanco (hueso, marfil, crema), incluyendo estampados con fondo blanco<br/>
+                Vestido largo. Evitar blanco y tonos muy claros que se perciban como blanco (hueso, marfil, crema), incluyendo estampados con fondo blanco.<br/>
                   <span className="text-[#949D6A] font-medium mt-3 block tracking-wide">Tip: Tacón ancho para el jardín.</span>
                 </p>
               </motion.div>
