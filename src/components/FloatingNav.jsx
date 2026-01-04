@@ -9,6 +9,7 @@ const SECTIONS = [
   { id: "regalos", label: "Mesa de regalos" },
   { id: "dresscode", label: "Dress code" }, // ⬅ añadido
   { id: "hospedaje", label: "Hospedaje" }, // ⬅ añadido
+  { id: "asistencia", label: "Asistencia" }, // ⬅ añadido
 ];
 
 export default function FloatingNav() {

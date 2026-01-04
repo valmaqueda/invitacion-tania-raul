@@ -94,6 +94,7 @@ const RSVPStamp = () => (
     </div>
   </motion.div>
 );
+
 const TALLY_BASE = "https://tally.so/r/QKe7qG";
 
 const getTallyUrl = () => {
@@ -120,7 +121,7 @@ export default function RSVPSection() {
   return (
     <section
       id="asistencia"
-      className="w-full py-24 md:py-32 px-4 flex justify-center relative overflow-hidden bg-[#FAF5EE]"
+      className="scroll-mt-28 w-full py-24 md:py-32 px-4 flex justify-center relative overflow-hidden bg-[#FAF5EE]"
     >
       {googleFonts}
 
@@ -208,13 +209,12 @@ export default function RSVPSection() {
                     transition-all duration-300
                     shadow-lg shadow-[#631600]/10
                 "
-                >
+              >
                 <div className="absolute inset-0 w-full h-full bg-[#A7712D] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
                 <span className="relative z-10 font-sans-elegant text-[11px] uppercase tracking-[0.25em] font-semibold group-hover:text-white transition-colors">
-                    Confirmar Ahora
+                  Confirmar Ahora
                 </span>
               </a>
-
             </div>
           </div>
         </motion.div>
