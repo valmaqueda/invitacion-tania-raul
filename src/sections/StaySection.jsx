@@ -19,21 +19,21 @@ const hotels = [
     name: "Pierre Mundo Imperial",
     href: "https://www.mundoimperial.com/en/pierre",
     tag: "All-Inclusive",
-    priceRange: "$$$$",
+    priceRange: "$$$",
     image: pierreImg,
   },
   {
     name: "Palacio Mundo Imperial",
     href: "https://www.mundoimperial.com/en/palacio",
     tag: "All-Inclusive",
-    priceRange: "$$$",
+    priceRange: "$$",
     image: palacioImg,
   },
   {
     name: "Hotel Tres Vidas",
     href: "https://www.google.com/maps/search/?api=1&query=Hotel+Tres+Vidas+Acapulco",
     tag: "Sede del evento",
-    priceRange: "Sede",
+    priceRange: "$$$$",
     image: tresVidasImg,
   },
 ];
@@ -189,7 +189,7 @@ function StaySection() {
             </div>
 
             <p className="mt-6 text-[10px] text-[#2e2106]/60 uppercase tracking-wide">
-            Menciona la boda para aplicar el código
+            Menciona la boda para aplicar el descuento
             </p>
         </div>
         </motion.div>

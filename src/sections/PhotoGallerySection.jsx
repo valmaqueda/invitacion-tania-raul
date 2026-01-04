@@ -47,56 +47,48 @@ function clampIndex(i, length) {
 }
 
 // --- CONFIGURACIÓN DE ANIMACIÓN ---
-// "Draw" effect lento y secuencial
 const drawVariant = {
   hidden: { pathLength: 0, opacity: 0 },
   visible: (custom) => ({
     pathLength: 1,
     opacity: 1,
     transition: {
-      pathLength: { 
-        delay: custom * 0.5, // Retraso escalonado
-        type: "spring", 
-        duration: 6, // MUY LENTO (6 segundos)
-        bounce: 0 
+      pathLength: {
+        delay: custom * 0.5,
+        type: "spring",
+        duration: 6,
+        bounce: 0,
       },
-      opacity: { duration: 0.5, delay: custom * 0.5 }
-    }
-  })
+      opacity: { duration: 0.5, delay: custom * 0.5 },
+    },
+  }),
 };
 
-// COMPONENTE: Ornamento Lateral (Simplificado y Fluido)
 const ComplexSideOrnament = ({ side }) => {
   const isLeft = side === "left";
-  
-  // Hemos eliminado los detalles pequeños, dejando solo los dos tallos principales
-  // que se entrelazan para una forma más limpia y sofisticada.
   return (
-    <div 
-      className={`absolute top-0 bottom-0 ${isLeft ? 'left-0' : 'right-0'} w-[180px] md:w-[280px] z-0 pointer-events-none overflow-hidden`}
+    <div
+      className={`absolute top-0 bottom-0 ${isLeft ? "left-0" : "right-0"} w-[180px] md:w-[280px] z-0 pointer-events-none overflow-hidden`}
     >
       <motion.svg
         viewBox="0 0 200 800"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className={`w-full h-full ${!isLeft ? 'scale-x-[-1]' : ''}`} // Espejo para la derecha
+        className={`w-full h-full ${!isLeft ? "scale-x-[-1]" : ""}`}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-10%" }}
       >
-        {/* TALLO PRINCIPAL (Grueso y largo - Color Mostaza) */}
         <motion.path
           d="M-20 800 C 50 700, 150 650, 100 500 C 50 350, 180 300, 150 100 C 140 40, 80 0, 50 -20"
           stroke={COLORS.mustard}
-          strokeWidth="2" 
+          strokeWidth="2"
           strokeLinecap="round"
           fill="none"
           variants={drawVariant}
-          custom={0} // Empieza primero
+          custom={0}
           className="opacity-40"
         />
-
-        {/* TALLO SECUNDARIO (Entrelazado - Color Olivo Suave) */}
         <motion.path
           d="M0 750 C 80 650, 40 500, 120 400 C 160 350, 40 200, 80 50"
           stroke={COLORS.oliveSoft}
@@ -104,11 +96,9 @@ const ComplexSideOrnament = ({ side }) => {
           strokeLinecap="round"
           fill="none"
           variants={drawVariant}
-          custom={0.8} // Empieza casi 1 segundo después
+          custom={0.8}
           className="opacity-50"
         />
-
-        {/* SE ELIMINARON LOS 3 PATHS PEQUEÑOS AQUÍ */}
       </motion.svg>
     </div>
   );
@@ -117,14 +107,15 @@ const ComplexSideOrnament = ({ side }) => {
 export default function PhotoGallerySection() {
   const photos = useMemo(
     () => [
-      { src: foto1, alt: "Momentos 1" },
-      { src: foto2, alt: "Momentos 2" },
-      { src: foto3, alt: "Momentos 3" },
-      { src: foto4, alt: "Momentos 4" },
-      { src: foto5, alt: "Momentos 5" },
-      { src: foto6, alt: "Momentos 6" },
-      { src: foto7, alt: "Momentos 7" },
-      { src: foto8, alt: "Momentos 8" },
+      // ✅ EDITA AQUÍ (caption + year por cada foto)
+      { src: foto1, alt: "Momentos 1", caption: "Ciudad de México", year: "2012" },
+      { src: foto2, alt: "Momentos 2", caption: "Paris", year: "2013" },
+      { src: foto3, alt: "Momentos 3", caption: "Paris", year: "2013" },
+      { src: foto4, alt: "Momentos 4", caption: "João Pessoa", year: "2014" },
+      { src: foto5, alt: "Momentos 5", caption: "Hidalgo", year: "2018" },
+      { src: foto6, alt: "Momentos 6", caption: "Guatemala", year: "2021" },
+      { src: foto7, alt: "Momentos 7", caption: "Hidalgo", year: "2021" },
+      { src: foto8, alt: "Momentos 8", caption: "Vancouver", year: "2021" },
     ],
     []
   );
@@ -187,7 +178,9 @@ export default function PhotoGallerySection() {
 
   useEffect(() => {
     if (isHovering) return;
-    const id = setInterval(() => { next(); }, 6500);
+    const id = setInterval(() => {
+      next();
+    }, 6500);
     return () => clearInterval(id);
   }, [active, isHovering]);
 
@@ -197,10 +190,7 @@ export default function PhotoGallerySection() {
   }, []);
 
   return (
-    <section
-      id="galeria"
-      className="w-full px-4 py-24 md:py-32 flex justify-center relative overflow-hidden"
-    >
+    <section id="galeria" className="w-full px-4 py-24 md:py-32 flex justify-center relative overflow-hidden">
       {googleFonts}
 
       {/* FONDO */}
@@ -213,10 +203,8 @@ export default function PhotoGallerySection() {
         }}
       />
 
-      {/* --- ORNAMENTOS LATERALES (Diseño Limpio) --- */}
       <ComplexSideOrnament side="left" />
       <ComplexSideOrnament side="right" />
-
 
       <div className="w-full max-w-6xl relative z-10">
         {/* Header */}
@@ -229,18 +217,21 @@ export default function PhotoGallerySection() {
         >
           <div className="flex items-center justify-center gap-3 mb-4">
             <span className="h-[1px] w-8" style={{ backgroundColor: `${COLORS.mustard}55` }} />
-            <p className="font-sans-elegant text-[11px] md:text-xs tracking-[0.32em] uppercase font-bold" style={{ color: COLORS.mustard }}>
+            <p
+              className="font-sans-elegant text-[11px] md:text-xs tracking-[0.32em] uppercase font-bold"
+              style={{ color: COLORS.mustard }}
+            >
               Galería
             </p>
             <span className="h-[1px] w-8" style={{ backgroundColor: `${COLORS.mustard}55` }} />
           </div>
 
-          <h2 className="font-serif-elegant text-4xl md:text-6xl leading-tight mb-3" style={{ color: "#7F8464"}}>
-          Nuestra historia en fotos
+          <h2 className="font-serif-elegant text-4xl md:text-6xl leading-tight mb-3" style={{ color: "#7F8464" }}>
+            Nuestra historia en fotos
           </h2>
 
           <p className="font-sans-elegant text-sm md:text-[15px] max-w-2xl mx-auto leading-relaxed" style={{ color: "#4F5440" }}>
-          “Lo mejor a lo que podemos aferrarnos en la vida es el uno al otro.” - Audrey H.
+            “Lo mejor a lo que podemos aferrarnos en la vida es el uno al otro.” - Audrey H.
           </p>
 
           <OrnamentalDivider />
@@ -260,7 +251,9 @@ export default function PhotoGallerySection() {
             onClick={prev}
             className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 h-12 w-12 items-center justify-center rounded-full bg-white/70 backdrop-blur border border-white/60 shadow-lg hover:bg-white/90 transition-all hover:scale-105"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke={COLORS.vino} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M15 18l-6-6 6-6" stroke={COLORS.vino} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </button>
 
           <button
@@ -268,7 +261,9 @@ export default function PhotoGallerySection() {
             onClick={next}
             className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 h-12 w-12 items-center justify-center rounded-full bg-white/70 backdrop-blur border border-white/60 shadow-lg hover:bg-white/90 transition-all hover:scale-105"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke={COLORS.vino} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M9 6l6 6-6 6" stroke={COLORS.vino} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </button>
 
           {/* Track */}
@@ -278,6 +273,7 @@ export default function PhotoGallerySection() {
           >
             {photos.map((p, i) => {
               const isActive = i === active;
+
               return (
                 <div key={i} data-slide={i} className="snap-center shrink-0 w-[85%] sm:w-[70%] md:w-[60%] lg:w-[50%]">
                   <motion.div
@@ -290,55 +286,61 @@ export default function PhotoGallerySection() {
                       transform: isActive ? "scale(1.02)" : "scale(0.98)",
                       transition: "transform 0.5s ease-out",
                       borderColor: isActive ? `${COLORS.mustard}33` : "transparent",
-                      borderWidth: "1px"
+                      borderWidth: "1px",
                     }}
                   >
                     {/* Marco interno */}
                     <div className="relative w-full aspect-[4/5] md:aspect-[3/2] overflow-hidden">
-                       <motion.img
+                      <motion.img
                         src={p.src}
                         alt={p.alt}
                         loading="lazy"
                         className="absolute inset-0 h-full w-full object-cover"
                         animate={{ scale: isActive ? 1.05 : 1 }}
-                        transition={{ duration: 7, ease: "linear" }} // Efecto Ken Burns muy lento
+                        transition={{ duration: 7, ease: "linear" }}
                       />
-                      {/* Overlay sutil */}
                       <div className="absolute inset-0 bg-[#631600]/10 mix-blend-overlay pointer-events-none" />
                     </div>
 
-                    {/* Pie de foto minimalista */}
-                    <div className="pt-3 flex justify-between items-center opacity-80">
-                         <span className="font-serif-elegant italic text-xs text-[#631600]">
-                            {String(i + 1).padStart(2, '0')} — {String(photos.length).padStart(2, '0')}
-                         </span>
-                         <span className="h-[1px] w-12 bg-[#A7712D]/40"></span>
-                    </div>
+                    {/* Pie de foto personalizable */}
+                    <div className="pt-3 flex items-center justify-between gap-4 opacity-90">
+                      <span className="font-serif-elegant italic text-[13px] md:text-sm text-[#631600] truncate">
+                        {p.caption || `Foto ${i + 1}`}
+                      </span>
 
+                      <div className="flex items-center gap-3 shrink-0">
+                        <span className="h-[1px] w-10 bg-[#A7712D]/45" />
+                        <span className="font-sans-elegant text-[11px] tracking-[0.18em] uppercase text-[#631600]/80">
+                          {p.year || ""}
+                        </span>
+                      </div>
+                    </div>
                   </motion.div>
                 </div>
               );
             })}
           </div>
-          
-           {/* Dots Indicators */}
-           <div className="mt-2 flex items-center justify-center gap-3">
+
+          {/* Dots */}
+          <div className="mt-2 flex items-center justify-center gap-3">
             {photos.map((_, i) => {
               const on = i === active;
               return (
                 <button
                   key={i}
-                  onClick={() => { setActive(i); scrollToIndex(i); }}
+                  onClick={() => {
+                    setActive(i);
+                    scrollToIndex(i);
+                  }}
                   className="h-1.5 rounded-full transition-all duration-500"
                   style={{
                     width: on ? 24 : 6,
-                    backgroundColor: on ? COLORS.mustard : "#D1D5DB"
+                    backgroundColor: on ? COLORS.mustard : "#D1D5DB",
                   }}
                 />
               );
             })}
           </div>
-
         </div>
       </div>
     </section>
