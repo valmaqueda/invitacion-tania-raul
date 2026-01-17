@@ -107,10 +107,10 @@ const ComplexSideOrnament = ({ side }) => {
 export default function PhotoGallerySection() {
   const photos = useMemo(
     () => [
-      // ✅ EDITA AQUÍ (caption + year por cada foto)
+    
       { src: foto1, alt: "Momentos 1", caption: "Ciudad de México", year: "2012" },
-      { src: foto2, alt: "Momentos 2", caption: "Paris", year: "2013" },
-      { src: foto3, alt: "Momentos 3", caption: "Paris", year: "2013" },
+      { src: foto2, alt: "Momentos 2", caption: "París", year: "2013" },
+      { src: foto3, alt: "Momentos 3", caption: "Londres", year: "2013" },
       { src: foto4, alt: "Momentos 4", caption: "João Pessoa", year: "2014" },
       { src: foto5, alt: "Momentos 5", caption: "Hidalgo", year: "2018" },
       { src: foto6, alt: "Momentos 6", caption: "Guatemala", year: "2021" },

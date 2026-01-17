@@ -11,7 +11,8 @@ import StaySection from "./sections/StaySection";
 import RSVPSection from "./sections/RSVPSection";
 import PhotoGallerySection from "./sections/PhotoGallerySection";
 
-import FloatingNav from "./components/FloatingNav";
+import FloatingNav from "./components/FloatingNav.jsx";
+
 
 function App() {
   return (

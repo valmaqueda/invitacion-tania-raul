@@ -42,7 +42,7 @@ const RSVPStamp = () => (
   <motion.div
     variants={floatAnimation}
     animate="animate"
-    className="relative w-36 h-36 md:w-40 md:h-40 flex items-center justify-center select-none"
+    className="relative w-36 h-36 md:w-40 md:h-40 lg:w-52 lg:h-52 flex items-center justify-center select-none"
   >
     {/* Marco estilo 'Reloj Antiguo' */}
     <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full">
@@ -117,6 +117,65 @@ const getTallyUrl = () => {
 
 const tallyUrl = getTallyUrl();
 
+/** =========================
+ *  WhatsApp RSVP (personalizado por max + code)
+ *  ========================= */
+const WHATSAPP_NUMBER = "527441914142"; // +52 744 191 4142 (sin signos ni espacios)
+
+const getWhatsAppUrl = () => {
+  const base = `https://wa.me/${WHATSAPP_NUMBER}`;
+  if (typeof window === "undefined") return base;
+
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("code");
+  const max = params.get("max");
+
+  const maxNum = max ? Number(max) : null;
+  const validMax = Number.isFinite(maxNum) && maxNum > 0;
+
+  // Línea principal (adaptada a max)
+  const confirmLine = validMax
+    ? maxNum === 1
+      ? "Confirmo para 1 persona (yo)."
+      : `Confirmo para ___ personas (máximo ${maxNum}).`
+    : "Confirmo para ___ personas (incluyéndome).";
+
+  // Líneas de nombres (adaptadas a max)
+  // (cap suave para que no se vuelva enorme si alguien pone max gigante)
+  const attendeeCount = validMax ? Math.min(maxNum, 8) : 3;
+  const attendeeLines = Array.from({ length: attendeeCount }, (_, i) => `${i + 1}) —`);
+
+  // ✅ Sin emojis para evitar "�" en algunos dispositivos/navegadores
+  const lines = [
+    "Hola!",
+    "Escribo para confirmar mi asistencia a la boda de Tania & Raúl.",
+    "",
+    "Nombre(s):",
+    "—",
+    "",
+    confirmLine,
+    "Nombres de los asistentes:",
+    ...attendeeLines,
+    "",
+    "Gracias.",
+  ];
+
+  if (code) {
+    lines.push("", `Código de invitación: ${code}`);
+  }
+
+  // Si quieres mantener la “nota” adicional, la dejamos (ya no es necesaria porque confirmLine ya incluye max)
+  // pero puede ayudar como referencia:
+  if (validMax) {
+    lines.push(`(Referencia: pase hasta ${maxNum} personas)`);
+  }
+
+  const text = encodeURIComponent(lines.join("\n"));
+  return `${base}?text=${text}`;
+};
+
+const whatsappUrl = getWhatsAppUrl();
+
 export default function RSVPSection() {
   return (
     <section
@@ -126,7 +185,7 @@ export default function RSVPSection() {
       {googleFonts}
 
       {/* BACKGROUND LAYERS */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white via-[#FAF5EE] to-[#EEF0EB] z-0" />
+      <div className="confirm absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white via-[#FAF5EE] to-[#EEF0EB] z-0" />
       <div className="absolute inset-0 opacity-[0.35] bg-[url('https://www.transparenttextures.com/patterns/cream-dust.png')] mix-blend-multiply pointer-events-none z-0"></div>
 
       <div className="w-full max-w-5xl relative z-10 flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24">
@@ -171,7 +230,8 @@ export default function RSVPSection() {
                 R.S.V.P.
               </span>
 
-              <h2 className="font-serif-elegant text-3xl md:text-5xl text-[#631600] leading-tight mb-6">
+              {/* TÍTULO: mobile igual, desktop más grande */}
+              <h2 className="font-serif-elegant text-3xl md:text-6xl text-[#631600] leading-tight mb-6">
                 Celebra con nosotros
               </h2>
 
@@ -215,6 +275,54 @@ export default function RSVPSection() {
                   Confirmar Ahora
                 </span>
               </a>
+
+              {/* WhatsApp (intuitivo/clickeable) */}
+              <div className="mt-7 text-center">
+                <p className="font-sans-elegant text-[12px] md:text-[13px] text-[#4F5440]/80 font-light">
+                  Si te es más cómodo, también puedes confirmar por WhatsApp{" "}
+                  <span className="font-serif-elegant italic text-[#631600]/80">
+                    (incluyendo cuántas personas asistirán)
+                  </span>
+                  .
+                </p>
+
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="
+                    mt-3 inline-flex items-center gap-2
+                    px-4 py-2
+                    rounded-full
+                    border border-[#A7712D]/25
+                    bg-white/50
+                    shadow-sm shadow-[#A7712D]/10
+                    hover:bg-white/70 hover:border-[#A7712D]/40
+                    transition-all duration-300
+                    group
+                  "
+                  aria-label="Abrir WhatsApp para confirmar asistencia"
+                  title="Toca para abrir WhatsApp"
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#A7712D]/70 group-hover:bg-[#A7712D] transition-colors" />
+                  <span className="font-sans-elegant text-[11px] uppercase tracking-[0.2em] text-[#4F5440]/80">
+                    WhatsApp
+                  </span>
+                  <span className="font-serif-elegant italic text-[#631600] text-[13px] md:text-[14px]">
+                    +52 744 191 4142
+                  </span>
+                  <span className="font-sans-elegant text-[#631600]/70 group-hover:text-[#631600] transition-colors">
+                    →
+                  </span>
+                </a>
+
+                <p className="mt-2 font-sans-elegant text-[11px] text-[#4F5440]/60">
+                  Toca el número para abrir WhatsApp
+                </p>
+
+                <div className="w-10 h-[1px] bg-[#A7712D]/25 mx-auto mt-4"></div>
+              </div>
+              {/* /WhatsApp */}
             </div>
           </div>
         </motion.div>

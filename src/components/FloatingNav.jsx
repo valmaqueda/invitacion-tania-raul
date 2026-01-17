@@ -7,9 +7,9 @@ const SECTIONS = [
   { id: "itinerario", label: "Itinerario" },
   { id: "ubicacion", label: "Ubicación" },
   { id: "regalos", label: "Mesa de regalos" },
-  { id: "dresscode", label: "Dress code" }, // ⬅ añadido
-  { id: "hospedaje", label: "Hospedaje" }, // ⬅ añadido
-  { id: "asistencia", label: "Asistencia" }, // ⬅ añadido
+  { id: "dresscode", label: "Dress code" },
+  { id: "hospedaje", label: "Hospedaje" },
+  { id: "asistencia", label: "Asistencia" },
 ];
 
 export default function FloatingNav() {
@@ -20,7 +20,7 @@ export default function FloatingNav() {
     const el = document.getElementById(id);
     if (!el) return;
 
-    // ⬅ 1) Forzamos que el menú pinte activo inmediatamente
+    // Pinta activo inmediato
     setActiveId(id);
 
     el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -28,33 +28,56 @@ export default function FloatingNav() {
   };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.target.id) {
-            setActiveId(entry.target.id);
-          }
-        });
-      },
-      {
-        threshold: 0.25,
-        // ⬅ 2) Hacemos más “generosa” la zona de detección,
-        // para que también entren bien las secciones del final
-        rootMargin: "-35% 0px -20% 0px",
+    if (typeof window === "undefined") return;
+
+    const getSectionEls = () =>
+      SECTIONS.map(({ id }) => document.getElementById(id)).filter(Boolean);
+
+    let sectionEls = getSectionEls();
+
+    const computeActive = () => {
+      // Punto guía: 35% desde arriba del viewport (ajústalo si quieres)
+      const probe = window.scrollY + window.innerHeight * 0.35;
+
+      let current = sectionEls[0]?.id || "inicio";
+
+      for (const el of sectionEls) {
+        if (el.offsetTop <= probe) current = el.id;
       }
-    );
 
-    SECTIONS.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
+      setActiveId(current);
+    };
 
-    return () => observer.disconnect();
+    let raf = null;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = null;
+        // por si el DOM cambió (lazy sections, imágenes que cambian altura, etc.)
+        sectionEls = getSectionEls();
+        computeActive();
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    // Inicial
+    computeActive();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   const existingSections = SECTIONS.filter(({ id }) =>
     typeof document !== "undefined" ? document.getElementById(id) : true
   );
+
+  const btnBase =
+    "group relative text-[11px] tracking-[0.18em] uppercase px-3 py-1.5 text-left rounded-full transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CB9850]/35";
 
   return (
     <>
@@ -73,16 +96,11 @@ export default function FloatingNav() {
               <button
                 key={id}
                 onClick={() => handleClick(id)}
-                className={`
-                  group relative text-[11px] tracking-[0.18em] uppercase
-                  px-3 py-1.5 text-left rounded-full
-                  transition-all duration-200
-                  ${
-                    isActive
-                      ? "bg-[#CB9850] text-ivory shadow-[0_6px_16px_rgba(0,0,0,0.22)]"
-                      : "text-[#7A8270] hover:bg-[#EFE2D6] hover:text-[#CB9850]"
-                  }
-                `}
+                className={`${btnBase} ${
+                  isActive
+                    ? "bg-[#CB9850] text-ivory shadow-[0_6px_16px_rgba(0,0,0,0.22)]"
+                    : "text-[#7A8270] hover:bg-[#EFE2D6] hover:text-[#CB9850]"
+                }`}
               >
                 {label}
               </button>
@@ -91,7 +109,7 @@ export default function FloatingNav() {
         </div>
       </motion.nav>
 
-      {/* MÓVIL: botón + tarjetita */}
+      {/* MÓVIL */}
       <motion.nav
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -114,16 +132,11 @@ export default function FloatingNav() {
                     <button
                       key={id}
                       onClick={() => handleClick(id)}
-                      className={`
-                        text-[11px] tracking-[0.18em] uppercase text-left
-                        px-3 py-1.5 rounded-full
-                        transition-all duration-200
-                        ${
-                          isActive
-                            ? "bg-[#CB9850] text-ivory"
-                            : "text-[#7A8270] hover:bg-[#EFE2D6] hover:text-[#CB9850]"
-                        }
-                      `}
+                      className={`${btnBase} ${
+                        isActive
+                          ? "bg-[#CB9850] text-ivory"
+                          : "text-[#7A8270] hover:bg-[#EFE2D6] hover:text-[#CB9850]"
+                      }`}
                     >
                       {label}
                     </button>
@@ -144,6 +157,7 @@ export default function FloatingNav() {
               text-ivory
               border border-white/60
               active:scale-95 transition-transform
+              focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CB9850]/35
             "
           >
             {isOpen ? "Cerrar" : "Menú"}
