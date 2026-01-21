@@ -115,7 +115,7 @@ export default function PhotoGallerySection() {
       { src: foto4, alt: "Momentos 4", caption: "João Pessoa", year: "2014" },
       { src: foto5, alt: "Momentos 5", caption: "Hidalgo", year: "2018" },
       { src: foto6, alt: "Momentos 6", caption: "Guatemala", year: "2021" },
-      { src: foto7, alt: "Momentos 7", caption: "Hidalgo", year: "2021" },
+      { src: foto7, alt: "Momentos 7", caption: "Chilcuautla", year: "2021" },
       { src: foto8, alt: "Momentos 8", caption: "Vancouver", year: "2021" },
     ],
     []
