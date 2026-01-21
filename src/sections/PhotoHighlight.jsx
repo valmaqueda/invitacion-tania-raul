@@ -2,8 +2,7 @@
 import { motion } from "framer-motion";
 import kensingtonImg from "../assets/kensington-steps.jpg";
 
-// 🌿 Rama decorativa con efecto de dibujo compatible con iOS
-// 🌿 Rama decorativa (iOS-safe): trigger 1 sola vez en el SVG + draw con dashoffset
+// 🌿 Rama decorativa (iOS-safe): intacta según tu versión final
 function DecorativeVine({ className = "", delayOffset = 0 }) {
   const stemDash = 520;
   const leafDash = 140;
@@ -63,9 +62,7 @@ function DecorativeVine({ className = "", delayOffset = 0 }) {
     <motion.svg
       viewBox="0 0 400 60"
       xmlns="http://www.w3.org/2000/svg"
-      // 👉 overflow-visible ayuda a evitar “clipping” raro en Safari
       className={`w-full max-w-4xl overflow-visible ${className}`}
-      // 👉 color del tallo (ajusta si quieres). Yo lo dejo #7F8464 como tu estilo
       style={{
         color: "#7F8464",
         WebkitBackfaceVisibility: "hidden",
@@ -76,7 +73,6 @@ function DecorativeVine({ className = "", delayOffset = 0 }) {
       whileInView="visible"
       viewport={{ once: true, amount: 0.55 }}
     >
-      {/* Tallo principal: dibujado iOS-safe */}
       <motion.path
         d="M5 45 C 80 10, 160 10, 240 30 C 300 45, 340 50, 395 40"
         fill="none"
@@ -87,7 +83,6 @@ function DecorativeVine({ className = "", delayOffset = 0 }) {
         variants={stemVariants}
       />
 
-      {/* Hojas: 2 capas (stroke dibujado + fill que aparece) */}
       {leaves.map((leaf, idx) => (
         <g key={idx}>
           <motion.path
@@ -110,7 +105,6 @@ function DecorativeVine({ className = "", delayOffset = 0 }) {
     </motion.svg>
   );
 }
-
 
 function PhotoHighlight() {
   return (
@@ -135,7 +129,7 @@ function PhotoHighlight() {
         {/* 🌿 Rama superior */}
         <DecorativeVine className="mt-1 mb-2" delayOffset={0} />
 
-        {/* Foto */}
+        {/* Foto Wrapper */}
         <motion.div
           className="
             relative overflow-hidden
@@ -144,10 +138,12 @@ function PhotoHighlight() {
             shadow-[0_18px_45px_-24px_rgba(0,0,0,0.6)]
             bg-champagne/40
             w-full
+            transform-gpu
           "
-          initial={{ opacity: 0, y: 40, scale: 0.96, filter: "blur(8px)" }}
-          whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-          viewport={{ once: true, amount: 0.6 }}
+          // FIX IOS: Eliminado el 'filter: blur' inicial para evitar glitches gráficos
+          initial={{ opacity: 0, y: 40, scale: 0.96 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 1.1, ease: [0.22, 0.55, 0.34, 0.99] }}
           whileHover={{
             scale: 1.01,
@@ -155,10 +151,11 @@ function PhotoHighlight() {
             transition: { duration: 0.4, ease: "easeOut" },
           }}
         >
+          {/* FIX CSS: 'h-auto' permite que la imagen defina la altura y no colapse en Safari */}
           <motion.img
             src={kensingtonImg}
             alt="Tania y Raúl bailando"
-            className="w-full h-full object-cover"
+            className="w-full h-auto object-cover block" 
             initial={{ scale: 1.06 }}
             animate={{ scale: 1.02 }}
             transition={{
@@ -171,7 +168,7 @@ function PhotoHighlight() {
 
           {/* Viñeta suave */}
           <div
-            className="pointer-events-none absolute inset-0"
+            className="pointer-events-none absolute inset-0 z-20"
             style={{
               background:
                 "radial-gradient(circle at center, transparent 45%, rgba(0,0,0,0.19) 100%)",

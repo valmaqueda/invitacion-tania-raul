@@ -278,7 +278,7 @@ export default function RSVPSection() {
 
               {/* WhatsApp (intuitivo/clickeable) */}
               <div className="mt-7 text-center">
-                <p className="font-sans-elegant text-[12px] md:text-[13px] text-[#4F5440]/80 font-light">
+                <p className="font-sans-elegant text-[12px] md:text-[15px] text-[#4F5440]/80 font-light">
                   Si te es más cómodo, también puedes confirmar por WhatsApp{" "}
                   <span className="font-serif-elegant italic text-[#631600]/80">
                     (incluyendo cuántas personas asistirán)
