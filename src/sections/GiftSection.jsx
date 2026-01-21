@@ -201,7 +201,7 @@ export default function GiftSection() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
-          className="text-center text-[9px] md:text-[10px] text-gray-400 uppercase tracking-[0.2em] max-w-lg mx-auto leading-loose"
+          className="text-center text-[9px] md:text-[10px] text-[#8b8442] uppercase tracking-[0.2em] max-w-lg mx-auto leading-loose"
         >
           Gracias por ayudarnos a hacer posible este día.<br />
           Cada detalle lo guardaremos en el corazón.
