@@ -5,17 +5,17 @@ import { motion } from "framer-motion";
 export default function Footer() {
   return (
     <footer className="bg-ivory border-t border-champagne/60 relative overflow-hidden">
-      {/* Clave del fix: 'pb-28' en mobile da espacio para el botón de Menú.
-         'md:pb-10' en desktop regresa a un padding normal.
+      {/* Mantiene el padding inferior grande (pb-28) en celular 
+         para que el botón de MENÚ no tape nada.
       */}
       <div className="max-w-5xl mx-auto px-6 pt-8 pb-28 md:pb-10 flex flex-col items-center justify-center gap-2">
         
-        {/* Texto superior sutil */}
-        <p className="text-slate-400 text-[10px] md:text-xs tracking-[0.2em] uppercase font-medium">
-          Diseñado y desarrollado con mucho amor
+        {/* APLICADO: Color #8b592a */}
+        <p className="text-[#8b592a] text-[10px] md:text-xs tracking-[0.2em] uppercase font-medium">
+          Diseñado y desarrollado con amor por
         </p>
 
-        {/* Tu nombre destacado y animado */}
+        {/* Tu nombre destacado */}
         <motion.div 
           className="text-center"
           initial={{ opacity: 0, y: 10 }}
@@ -29,8 +29,8 @@ export default function Footer() {
             <span className="text-xs opacity-60">★</span>
           </span>
           
-          {/* Pequeño detalle extra: año o copyright opcional */}
-          <p className="text-[10px] text-slate-300 mt-1">
+          {/* Pequeño copyright, también en tono similar pero más suave */}
+          <p className="text-[10px] text-[#8b592a] opacity-60 mt-1">
             © 2026
           </p>
         </motion.div>

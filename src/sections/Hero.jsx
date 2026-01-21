@@ -1,7 +1,7 @@
 // src/sections/Hero.jsx
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import heroImg from "../assets/hero-tania-raul.JPG";
+import heroImg from "../assets/hero-tania-raul.webp";
 
 // Greca animada ✨
 const FloralDivider = () => {

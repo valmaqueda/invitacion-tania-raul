@@ -1,5 +1,7 @@
+// src/sections/PhotoGallerySection.jsx
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "framer-motion";
+// 1. IMPORTANTE: Agregamos 'useInView' para detectar cuando la gente ve la sección
+import { motion, useInView } from "framer-motion";
 
 import foto1 from "../assets/foto1.JPG";
 import foto2 from "../assets/foto2.JPG";
@@ -107,7 +109,6 @@ const ComplexSideOrnament = ({ side }) => {
 export default function PhotoGallerySection() {
   const photos = useMemo(
     () => [
-    
       { src: foto1, alt: "Momentos 1", caption: "Ciudad de México", year: "2012" },
       { src: foto2, alt: "Momentos 2", caption: "París", year: "2013" },
       { src: foto3, alt: "Momentos 3", caption: "Londres", year: "2013" },
@@ -121,6 +122,12 @@ export default function PhotoGallerySection() {
   );
 
   const trackRef = useRef(null);
+  
+  // 2. Referencia para detectar si la sección es visible
+  const sectionRef = useRef(null);
+  // Detecta si al menos el 20% de la galería está en pantalla
+  const isInView = useInView(sectionRef, { amount: 0.2, once: false });
+
   const [active, setActive] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -145,6 +152,7 @@ export default function PhotoGallerySection() {
     scrollToIndex(i);
   };
 
+  // Sincronización manual de scroll (touch/trackpad)
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
@@ -176,21 +184,30 @@ export default function PhotoGallerySection() {
     };
   }, []);
 
+  // 3. FIX: Solo activar el timer si NO estamos haciendo hover Y si la sección ESTÁ visible
   useEffect(() => {
-    if (isHovering) return;
+    if (isHovering || !isInView) return; 
+    
     const id = setInterval(() => {
       next();
     }, 6500);
+    
     return () => clearInterval(id);
-  }, [active, isHovering]);
+  }, [active, isHovering, isInView]); // Agregamos isInView a las dependencias
 
+  // Reset inicial para asegurar posición 0 al cargar
   useEffect(() => {
     const t = setTimeout(() => scrollToIndex(0, "auto"), 80);
     return () => clearTimeout(t);
   }, []);
 
   return (
-    <section id="galeria" className="w-full px-4 py-24 md:py-32 flex justify-center relative overflow-hidden">
+    <section 
+      id="galeria" 
+      // Conectamos la referencia a la sección principal
+      ref={sectionRef}
+      className="w-full px-4 py-24 md:py-32 flex justify-center relative overflow-hidden"
+    >
       {googleFonts}
 
       {/* FONDO */}
